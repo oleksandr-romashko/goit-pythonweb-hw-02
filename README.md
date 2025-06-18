@@ -326,7 +326,7 @@ You can either run the project in a fully containerized development environment 
     ```env
     # === WEB PORTAL SETTINGS ===
 
-    WEB_PORT=8180
+    WEB_PORT=8000
 
     # === DATABASE SETTINGS AND CREDENTIALS ===
 
@@ -335,18 +335,20 @@ You can either run the project in a fully containerized development environment 
     # DB_PORT=5432  # Commented for better security and access via pgAdmin tool only.
 
     # Main superuser credentials for initial DB creation
-    DB_ADMIN_USER=postgres  # Better to leave default to escape issues
-    DB_ADMIN_PASSWORD=dsaiE21s^ds&_2sda!s
+    DB_ADMIN_USER=postgres  # It is recommended to leave default value to prevent issues with services
+    DB_ADMIN_PASSWORD=your_secret_db_password_here
 
     # App user (limited) - the user your app will use to access the database
     DB_APP_USER=app_user
-    DB_APP_PASSWORD=app_pass
+    DB_APP_PASSWORD=app_db_secret_password
 
     # === DATABASE ADMIN PANEL ===
-
     # DB_ADMIN_PANEL_* is used only to log into pgAdmin (admin interface)
-    DB_ADMIN_PANEL_ACCESS_EMAIL=alex.rmshk@gmail.com
-    DB_ADMIN_PANEL_PASSWORD=pgadmin_78856432Dsr%23
+
+    # pgAdmin user credentials to access database management
+    DB_ADMIN_PANEL_ACCESS_EMAIL=pgadmin@local.dev
+    DB_ADMIN_PANEL_PASSWORD=your_secret_pgadmin_password_here
+
     DB_ADMIN_PANEL_PORT=5050
    ```
    
