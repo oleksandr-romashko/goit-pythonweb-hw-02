@@ -9,7 +9,7 @@
 
 ## Basics of Docker Technology <!-- omit in toc -->
 
-This project demonstrates the containerization of a [FastAPI](https://fastapi.tiangolo.com/) application using [Docker](https://www.docker.com/). The task involved integrating a [PostgreSQL](https://hub.docker.com/_/postgres) database into a shared [Docker Compose](https://docs.docker.com/compose/) setup, enabling all services to run together seamlessly. The solution includes automation for building and running containers for convenient development and ensure consistent environment setup.
+This project demonstrates the containerization of a [FastAPI](https://fastapi.tiangolo.com/) application using [Docker](https://www.docker.com/). The task involved integrating a [PostgreSQL](https://hub.docker.com/_/postgres) database into a shared [Docker Compose](https://docs.docker.com/compose/) setup, enabling all services to run together seamlessly. The solution includes automation for building and running containers for convenient development and to ensure consistent environment setup.
 
 In addition to the FastAPI application and PostgreSQL database, the setup includes optional pgAdmin with preset database server as a database management tool — all running within a unified Docker Compose environment.
 
@@ -22,6 +22,7 @@ In addition to the FastAPI application and PostgreSQL database, the setup includ
   - [Acceptance Criteria](#acceptance-criteria)
 - [Task Solution](#task-solution)
     - [Project files](#project-files)
+    - [Docker Hub](#docker-hub)
     - [UML Deployment Diagram](#uml-deployment-diagram)
     - [Solution Screenshots](#solution-screenshots)
       - [Application successful setup screenshots](#application-successful-setup-screenshots)
@@ -86,6 +87,8 @@ You need to clone a FastAPI-based project, configure it, and run it in a Docker 
 
 ## Task Solution
 
+This project demonstrates containerization of FastAPI with PostgreSQL using Docker Compose, optimized for local development.
+
 #### Project files
 
 Solution for this task is located in the following files:
@@ -95,10 +98,28 @@ Solution for this task is located in the following files:
 * [Docker compose file](./compose.yaml) - file with configurations for both the FastAPI app and the PostgreSQL database, incl. optional pgAdmin tooling.
 * [.env.example](./.env.example) - example for user file (`.env`) with application settings.
 * [init/](./init/) - folder with initialization scripts for:
-    * PostgreSQL database - has it own [Readme description](./init/db/Readme.md) with motivation to have it.
+    * PostgreSQL database - has its own [Readme description](./init/db/Readme.md) with motivation to have it.
     * pgAdmin - has its own [Readme description](./init/pgadmin/Readme.md)  with motivation to have it.
 * [src/](./src/) - folder with FastAPI (backend + frontend) application.
 * [.python-version](./.python-version) - optional settings for [pyenv](https://github.com/pyenv/pyenv) to set version of Python (tested with pyenv version 2.6.1).
+
+#### Docker Hub
+
+This project is also published to [Docker Hub](https://hub.docker.com/r/rmsh/goit-pythonweb-hw-02).
+
+You can pull and run it directly:
+
+```bash
+docker pull rmsh/goit-pythonweb-hw-02
+```
+
+Then run it:
+```bash
+docker run -p 8000:8000 rmsh/goit-pythonweb-hw-02
+```
+
+> 📝 Note:
+> You still need a PostgreSQL database to connect to. Either use the provided docker-compose.yml, or connect to your own database.
 
 #### UML Deployment Diagram
 
@@ -125,7 +146,8 @@ Containers status, together with health status:
 
 #### Additional Solution Comments
 
-* For easier setup of project settings and better security `.env` file containing environmental variables approach was used to contain all main project settings like user and database names, user passwords, exposed ports, etc. To create `.env` file, [.env.example](./.env.example) was provided. `.env` file should not be under version control or disclosed in any way.
+* For easier setup of project settings and better security `.env` file containing environmental variables approach was used to contain all main project settings like user and database names, user passwords, exposed ports, etc. To create `.env` file, [.env.example](./.env.example) was provided - use it content as a start point.
+    `.env` file should not be under version control or disclosed in any way.
 * Added health check for the containers in [compose.yaml](./compose.yaml) to check their state.
     Now there is possibility to see if there is something wrong with a specific running container:
     ![healthcheck feature](./assets/results/features/healthcheck.png)
@@ -150,21 +172,21 @@ May be included by invoking using `tools` profile when starting compose environm
 * Moved FastApi application related files into the separate [src/](./src/) folder to separate it from other project files.
     While building Docker image all contained in the `src/` folder files are copied into respective `/app` working directory inside container.
     This enhancement allows to maintain clean project structure and reduces necessity to update [.dockerignore][.dockerignore] file so often.
-* Minimalistic Python alpine base images required sone additional dependencies to be added and build (not required by full Python image). This increased overall image build time and its size. To optimize this dependency:
+* Minimalistic Python alpine base images required some additional dependencies to be added and build (not required by full Python image). This increased overall image build time and its size. To optimize this dependency:
     ```requirements.txt
     psycopg2==2.9.9 ; python_version >= "3.10" and python_version < "4.0"
     ```
-    was replace with already built binary dependency:
+    was replaced with already built binary dependency:
     ```requirements.txt
     psycopg2-binary==2.9.9 ; python_version >= "3.10" and python_version < "4.0"
     ```
-    This allowed to avoid installing `gcc`, `musl-dev`, `python3-dev`, and `postgresql-dev`, which alone can save several hundred MB.
+    This allowed to avoid installing `gcc`, `musl-dev`, `python3-dev`, and `postgresql-dev`, that alone can save several hundred MB.
 * Removed (commented out) unused dependencies from installation in [requirements.txt](./requirements.txt) to reduce final image size:
     ```requirements.txt
     faker==20.1.0 ; python_version >= "3.10" and python_version < "4.0"   # Move to dev if only for testing
     pymongo==4.6.1 ; python_version >= "3.10" and python_version < "4.0"  # Avoid if MongoDB isn't core
     ```
-* Added [.dockerignore](./.dockerignore) file that opt out some files that are not required in final `web` service container (e.g. documentation, cache, virtual environment, etc.) and will ignored while building `web` service image.
+* Added [.dockerignore](./.dockerignore) file that exclude some files that are not required in final `web` service container (e.g. documentation, cache, virtual environment, etc.) and will ignored while building `web` service image.
     Now web container contains only necessary app files:
     ![app files after dockerignore](./assets/results/features/dockerignore.png)
 * Optimize Docker image build in [Dockerfile](./Dockerfile) by:
