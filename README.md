@@ -212,8 +212,13 @@ May be included by invoking using `tools` profile when starting compose environm
     DB_ADMIN_PANEL_ACCESS_EMAIL=pgadmin@local.dev
     DB_ADMIN_PANEL_PASSWORD=your_secret_pgadmin_password_here
     ```
-* Added automatic postgress database initialization using `.env` file, located in [init/db/](./init/db/). Whole description for this part is located in a separate [Readme file](./init/db/Readme.md).
-* Added automatic pgAdmin initialization using `.env` file with automatic adding servers information, located in [init/pgadmin/](./init/pgadmin/). Whole description for this part is located in a separate [Readme file](./init/pgadmin/Readme.md).
+* Added automatic Postgres database initialization using `.env` file.
+    Database is initialized with root user in [./compose.yaml](./compose.yaml) and web application user, script with template for which are located in [init/db/](./init/db/).
+    Whole description for this part is located in a separate [Readme file](./init/db/Readme.md).
+* Added automatic pgAdmin initialization using `.env` file.
+    PgAdmin is automatically added with pgAdmin user and servers information.
+    Script and template are located in [init/pgadmin/](./init/pgadmin/). 
+    Whole description for this part is located in a separate [Readme file](./init/pgadmin/Readme.md).
 * Alpine image for postgres was used in [compose.yaml](./compose.yaml) config file to reduce final image size. Some standard full-size image features may be absent and may require workarounds or additional installation.
 * To enhance security, by default direct access to database using it's port is turned off. Access to database should be done using provided pgAdmin tool.
     Direct access to database still may be turned on by uncommenting line with `DB_PORT` variable in `.env` file:
@@ -300,7 +305,7 @@ Before you begin, make sure you have the following installed:
 * **[Docker](https://www.docker.com/)** — Used to containerize the application, PostgreSQL database, and pgAdmin in a unified environment using Docker Compose.
 * (Optional) **[Git](https://git-scm.com/downloads)** — To clone [the repository](https://github.com/oleksandr-romashko/goit-pythonweb-hw-02), version control and development.
 * (Optional: Developemnt) **[VS Code](https://code.visualstudio.com/download)** or another IDE — Recommended for browsing and editing the project source code and overall development.
-* (Optional) **[pyenv](https://github.com/pyenv/pyenv)** - Used to set version of Python (tested with pyenv version 2.6.1).
+* (Optional) **[pyenv](https://github.com/pyenv/pyenv)** - Used to set version of Python during development (tested with pyenv version 2.6.1).
 
 ### Setting Up the Development Environment
 
@@ -321,7 +326,7 @@ You can either run the project in a fully containerized development environment 
 
 > This method runs the FastAPI app, PostgreSQL database, and pgAdmin in a single Docker Compose network.
 
-1. **Make a copy of** [.env.example](.env.example) **and rename it to** `.env`**. Adjust the values to configure the application and related containers.**
+1. **Make a copy out of** [.env.example](.env.example) **and name it ** `.env`**. Adjust the values to configure the application and related containers (first of all passwords, maybe ports).**
    Example of `.env` file, shown in [.env.example](./.env.example):
     ```env
     # === WEB PORTAL SETTINGS ===
@@ -336,18 +341,18 @@ You can either run the project in a fully containerized development environment 
 
     # Main superuser credentials for initial DB creation
     DB_ADMIN_USER=postgres  # It is recommended to leave default value to prevent issues with services
-    DB_ADMIN_PASSWORD=your_secret_db_password_here
+    DB_ADMIN_PASSWORD=your_db_root_user_secret_password_here
 
     # App user (limited) - the user your app will use to access the database
     DB_APP_USER=app_user
-    DB_APP_PASSWORD=app_db_secret_password
+    DB_APP_PASSWORD=your_app_accessing_db_limited_user_secret_password
 
     # === DATABASE ADMIN PANEL ===
     # DB_ADMIN_PANEL_* is used only to log into pgAdmin (admin interface)
 
     # pgAdmin user credentials to access database management
     DB_ADMIN_PANEL_ACCESS_EMAIL=pgadmin@local.dev
-    DB_ADMIN_PANEL_PASSWORD=your_secret_pgadmin_password_here
+    DB_ADMIN_PANEL_PASSWORD=your_pgadmin_user_secret_password_here
 
     DB_ADMIN_PANEL_PORT=5050
    ```
@@ -360,17 +365,18 @@ You can either run the project in a fully containerized development environment 
    > ℹ️ 🔓 To expose the PostgreSQL port (e.g., for connection from external tools), uncomment the line:
    > `# DB_PORT=5432`
 2. **Start the Environment:**
-    _(with optional `tools` profile if needed)_
+    _(with optional `tools` profile to start pgAdmin if needed)_
     ```bash
     docker compose --profile tools up
     ```
     This will:
-    1. Build the FastAPI app container.
-    2. Initialize and start PostgreSQL and pgAdmin containers with values in .env file.
-    3. Expose:
+    1. Download all necessary image dependencies.
+    2. Build the `FastAPI` app image and run container.
+    3. Initialize and start `PostgreSQL` and `pgAdmin` containers with values in .env file.
+    5. Expose:
         * FastAPI app at: [localhost:8000](http://localhost:8000) (default port is set by `WEB_PORT` in `.env`)
         * pgAdmin at: [localhost:5050](http://localhost:5050) (default port is set by `DB_ADMIN_PANEL_PORT` in `.env`)
-        * PostgreSQL database is not exposed (default, may be configured in the .env file) (port is not exposed - uncomment line to expose, set by `DB_PORT` in `.env`)
+        * PostgreSQL database is not exposed by default(may be configured in the .env file - uncomment line with `DB_PORT` in `.env` to expose it)
 3. **Shut Down:**
     ```bash
     docker compose down
