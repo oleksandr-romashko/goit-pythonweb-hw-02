@@ -3935,10 +3935,10 @@
 							},
 							"font": "Roboto;13;0",
 							"left": 136,
-							"top": 464,
+							"top": 448,
 							"width": 440,
-							"height": 426,
-							"text": ".env file example:\n \n# === WEB PORTAL SETTINGS ===\n \nWEB_PORT=8000\n \n# === DATABASE SETTINGS AND CREDENTIALS ===\n \nDB_NAME=mydb\nDB_HOST=hw02db\n# DB_PORT=5432  # Commented for better security and access via pgAdmin tool only.\n \n# Main superuser credentials for initial DB creation\nDB_ADMIN_USER=postgres  # Better to leave default to escape issues\nDB_ADMIN_PASSWORD=your_secret_db_password_here\n \n# App user (limited) - the user your app will use to access the database\nDB_APP_USER=app_user\nDB_APP_PASSWORD=app_db_secret_password\n \n# === DATABASE ADMIN PANEL ===\n \n# DB_ADMIN_PANEL_* is used only to log into pgAdmin (admin interface)\nDB_ADMIN_PANEL_ACCESS_EMAIL=pgadmin@local.dev\nDB_ADMIN_PANEL_PASSWORD=your_secret_pgadmin_password_here\nDB_ADMIN_PANEL_PORT=5050"
+							"height": 469,
+							"text": ".env file example:\n \n# === WEB PORTAL SETTINGS ===\n \nWEB_PORT=8000\n \n# === DATABASE SETTINGS AND CREDENTIALS ===\n \nDB_NAME=mydb\nDB_HOST=hw02db\n# DB_PORT=5432  # Commented for better security and access via pgAdmin tool only.\n \n# Main superuser credentials for initial DB creation\nDB_ADMIN_USER=postgres  # It is recommended to leave default value to prevent issues with services\nDB_ADMIN_PASSWORD=your_secret_db_password_here\n \n# App user (limited) - the user your app will use to access the database\nDB_APP_USER=app_user\nDB_APP_PASSWORD=app_db_secret_password\n \n# === DATABASE ADMIN PANEL ===\n# DB_ADMIN_PANEL_* is used only to log into pgAdmin (admin interface)\n \n# pgAdmin user credentials to access database management\nDB_ADMIN_PANEL_ACCESS_EMAIL=pgadmin@local.dev\nDB_ADMIN_PANEL_PASSWORD=your_secret_pgadmin_password_here\n \nDB_ADMIN_PANEL_PORT=5050"
 						},
 						{
 							"_type": "UMLNoteView",
@@ -6075,11 +6075,11 @@
 							},
 							"fillColor": "#FFEAAD99",
 							"font": "Roboto;13;0",
-							"left": 1064,
-							"top": 520,
-							"width": 112,
+							"left": 1080,
+							"top": 536,
+							"width": 152,
 							"height": 51,
-							"text": "build or loaded from Docker Hub"
+							"text": "build or (optionally) loaded from Docker Hub"
 						},
 						{
 							"_type": "UMLNoteLinkView",
@@ -6094,7 +6094,8 @@
 							"tail": {
 								"$ref": "AAAAAAGXet0jUq/2b+Y="
 							},
-							"points": "1064:554;983:554"
+							"lineStyle": 1,
+							"points": "1079:552;984:541"
 						},
 						{
 							"_type": "UMLArtifactView",
@@ -8238,6 +8239,7 @@
 											"visible": false,
 											"fillColor": "#FFD8D899",
 											"font": "Roboto;13;0",
+											"left": -48,
 											"top": -384,
 											"width": 54.0185546875,
 											"height": 13,
@@ -8251,11 +8253,11 @@
 											},
 											"fillColor": "#FFD8D899",
 											"font": "Roboto;13;1",
-											"left": 2045,
+											"left": 2021,
 											"top": 441,
-											"width": 72.97607421875,
+											"width": 128.58154296875,
 											"height": 13,
-											"text": "servers.json"
+											"text": "servers.template.json"
 										},
 										{
 											"_type": "LabelView",
@@ -8266,6 +8268,7 @@
 											"visible": false,
 											"fillColor": "#FFD8D899",
 											"font": "Roboto;13;0",
+											"left": -48,
 											"top": -384,
 											"width": 80.7041015625,
 											"height": 13,
@@ -8280,6 +8283,7 @@
 											"visible": false,
 											"fillColor": "#FFD8D899",
 											"font": "Roboto;13;0",
+											"left": -48,
 											"top": -384,
 											"height": 13,
 											"horizontalAlignment": 1
@@ -8287,9 +8291,9 @@
 									],
 									"fillColor": "#FFD8D899",
 									"font": "Roboto;13;0",
-									"left": 2040,
+									"left": 2016,
 									"top": 434,
-									"width": 82.97607421875,
+									"width": 138.58154296875,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAGXev7O2felMG8="
@@ -8316,6 +8320,7 @@
 									"visible": false,
 									"fillColor": "#FFD8D899",
 									"font": "Roboto;13;0",
+									"left": -24,
 									"top": -192,
 									"width": 10,
 									"height": 10
@@ -8332,6 +8337,7 @@
 									"visible": false,
 									"fillColor": "#FFD8D899",
 									"font": "Roboto;13;0",
+									"left": -24,
 									"top": -192,
 									"width": 10,
 									"height": 10
@@ -8348,6 +8354,7 @@
 									"visible": false,
 									"fillColor": "#FFD8D899",
 									"font": "Roboto;13;0",
+									"left": -24,
 									"top": -192,
 									"width": 10,
 									"height": 10
@@ -8364,6 +8371,7 @@
 									"visible": false,
 									"fillColor": "#FFD8D899",
 									"font": "Roboto;13;0",
+									"left": -24,
 									"top": -192,
 									"width": 10,
 									"height": 10
@@ -8372,9 +8380,9 @@
 							"fillColor": "#FFD8D899",
 							"font": "Roboto;13;0",
 							"containerChangeable": true,
-							"left": 2040,
+							"left": 2016,
 							"top": 384,
-							"width": 81.97607421875,
+							"width": 137.58154296875,
 							"height": 75,
 							"autoResize": true,
 							"stereotypeDisplay": "icon",
@@ -8663,7 +8671,7 @@
 							"tail": {
 								"$ref": "AAAAAAGXev7O2feje4o="
 							},
-							"points": "2040:413;1952:413;1952:600;1840:600;1840:944",
+							"points": "2016:413;1952:413;1952:600;1840:600;1840:944",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAGXewAq1w3EAjE="
@@ -8793,7 +8801,7 @@
 								"$ref": "AAAAAAGXewhmXE6FFOQ="
 							},
 							"lineStyle": 1,
-							"points": "2231:392;2123:413"
+							"points": "2231:393;2155:407"
 						},
 						{
 							"_type": "UMLArtifactView",
@@ -8824,7 +8832,7 @@
 											"visible": false,
 											"fillColor": "#FFEAAD99",
 											"font": "Roboto;13;0",
-											"left": -372,
+											"left": -404,
 											"top": 228,
 											"width": 54.0185546875,
 											"height": 13,
@@ -8838,7 +8846,7 @@
 											},
 											"fillColor": "#FFEAAD99",
 											"font": "Roboto;13;1",
-											"left": 981,
+											"left": 965,
 											"top": 649,
 											"width": 109.849609375,
 											"height": 13,
@@ -8852,7 +8860,7 @@
 											},
 											"fillColor": "#FFEAAD99",
 											"font": "Roboto;13;0",
-											"left": 981,
+											"left": 965,
 											"top": 664,
 											"width": 109.849609375,
 											"height": 13,
@@ -8867,7 +8875,7 @@
 											"visible": false,
 											"fillColor": "#FFEAAD99",
 											"font": "Roboto;13;0",
-											"left": -372,
+											"left": -404,
 											"top": 228,
 											"height": 13,
 											"horizontalAlignment": 1
@@ -8875,7 +8883,7 @@
 									],
 									"fillColor": "#FFEAAD99",
 									"font": "Roboto;13;0",
-									"left": 976,
+									"left": 960,
 									"top": 642,
 									"width": 119.849609375,
 									"height": 40,
@@ -8904,7 +8912,7 @@
 									"visible": false,
 									"fillColor": "#FFEAAD99",
 									"font": "Roboto;13;0",
-									"left": -186,
+									"left": -202,
 									"top": 114,
 									"width": 10,
 									"height": 10
@@ -8921,7 +8929,7 @@
 									"visible": false,
 									"fillColor": "#FFEAAD99",
 									"font": "Roboto;13;0",
-									"left": -186,
+									"left": -202,
 									"top": 114,
 									"width": 10,
 									"height": 10
@@ -8938,7 +8946,7 @@
 									"visible": false,
 									"fillColor": "#FFEAAD99",
 									"font": "Roboto;13;0",
-									"left": -186,
+									"left": -202,
 									"top": 114,
 									"width": 10,
 									"height": 10
@@ -8955,7 +8963,7 @@
 									"visible": false,
 									"fillColor": "#FFEAAD99",
 									"font": "Roboto;13;0",
-									"left": -186,
+									"left": -202,
 									"top": 114,
 									"width": 10,
 									"height": 10
@@ -8964,7 +8972,7 @@
 							"fillColor": "#FFEAAD99",
 							"font": "Roboto;13;0",
 							"containerChangeable": true,
-							"left": 976,
+							"left": 960,
 							"top": 592,
 							"width": 118.849609375,
 							"height": 90,
@@ -9069,7 +9077,7 @@
 							"tail": {
 								"$ref": "AAAAAAGXewwHI2oDeqA="
 							},
-							"points": "976:632;872:632;872:944",
+							"points": "960:632;872:632;872:944",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAGXew1SHH8Ln+g="
@@ -9484,7 +9492,7 @@
 					"_parent": {
 						"$ref": "AAAAAAGXedS89Iw8hiQ="
 					},
-					"name": "servers.json",
+					"name": "servers.template.json",
 					"ownedElements": [
 						{
 							"_type": "UMLDependency",
